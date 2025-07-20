@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Memo Admin</title>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+{% if theme == 'dark' %}
+  <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/darkly/bootstrap.min.css" rel="stylesheet">
+{% else %}
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+{% endif %}
+
+</head>
+<body class="container mt-5">
+    <h2>Welcome MEMO Admin: {{ admin }}</h2>
+    <a href="/logout" class="btn btn-sm btn-danger float-end">Logout</a>
+    <a href="/admin/users" class="btn  my-2">👥 Manage Users</a>
+    <a href="/admin/logins" class="btn my-2">🔐 View Login History</a>
+    <a href="/admin/settings" class="btn btn-sm btn-outline-info mx-1">settings</a>
+    <a href="/calendar" class="btn btn-sm btn-outline-info mx-1">calendar</a>
+    <a href="/export" class="btn btn-sm btn-outline-info mx-">Export All</a>
+    <hr>
+    <h4>All Events</h4>
+    <ul class="list-group">
+        {% for e in events %}
+        <li class="list-group-item d-flex justify-content-between">
+            <div>
+                <strong>{{ e[2] }}</strong> by <b>{{ e[3] }}</b><br>
+                    {{ e[4] }} {{ e[5] }}<br>
+                <em>Note:</em> {{ e[6] }}<br>
+                <em>User:</em> {{ e[7] }}
+            </div>
+        </li>
+        <li>
+            <!-- <a href="/admin/delete/{{ e[0] }}" class="btn btn-sm btn-outline-danger">Delete</a> -->
+            <a href="{{ url_for('admin_delete_user_event', event_id=e[0], user_id='0') }}" class="btn btn-sm btn-outline-danger">Delete</a>
+            <a href="{{ url_for('admin_edit_user_event', event_id=e[0], user_id='0') }}" class="btn btn-sm btn-outline-info mx-1">Edit</a>
+        </li>
+        {% endfor %}
+    </ul>
+<script>
+    flatpickr("#event_date", {
+        altInput: true,
+        altFormat: "F j, Y",
+        dateFormat: "Y-m-d",
+        minDate: "today"
+    });
+    flatpickr("#event_time", {
+    enableTime: true,
+    noCalendar: true,
+    dateFormat: "h:i K",  // Use lowercase 'h' for 12-hour, and 'K' for AM/PM
+    time_24hr: false      // This enables 12-hour mode
+    });
+</script>
+</body>
+</html>
