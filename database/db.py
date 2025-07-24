@@ -42,7 +42,7 @@ def init_db():
         )''') 
         #cur.execute("INSERT INTO admin (username, password, theme) VALUES (?, ?, ?)",
         #            (admin, generate_password_hash(admin))
-        #)  first drop admin table then execute ^ this
+        #)  first drop admin table then execute ^ this |OR| delete db.py then execute/uncomment cur.execute
         conn.commit()
 
 # User & Admin Registration/Authentication
