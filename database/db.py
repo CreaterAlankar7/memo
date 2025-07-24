@@ -40,6 +40,9 @@ def init_db():
         role TEXT,
         login_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )''') 
+        #cur.execute("INSERT INTO admin (username, password, theme) VALUES (?, ?, ?)",
+        #            (admin, generate_password_hash(admin))
+        #)  first drop admin table then execute ^ this
         conn.commit()
 
 # User & Admin Registration/Authentication
